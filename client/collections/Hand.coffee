@@ -5,7 +5,14 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    @add(@deck.pop()).last()
+    if @scores()  < 21
+      @add(@deck.pop()).last()
+    else
+      if @scores() == 21
+        alert('What are you doing?  You have 21.  People dream of getting to 21!')
+      else
+        alert('You busted.  Play again.  Or quit.')
+
 
   scores: ->
     # The scores are an array of potential scores.

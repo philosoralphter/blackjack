@@ -4,9 +4,12 @@ class window.CardView extends Backbone.View
 
   template: _.template '<img src="img/cards/<%= rankName %>-<%= suitName %>.png" />'##'<%= rankName %> of <%= suitName %>'
 
+
   initialize: ->
     @model.on 'change', => @render
     @render()
+    # console.log(rankName)
+    console.log( @model.get 'rankName')
 
   render: ->
     @$el.children().detach().end().html
