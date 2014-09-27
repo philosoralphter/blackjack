@@ -57,6 +57,7 @@ class window.Hand extends Backbone.Collection
       @trigger('win')
     else
       console.log('Dealer Stands')
+      @trigger('result')
       @trigger('determineWinner')
 
   scores: ->
