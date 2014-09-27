@@ -9,11 +9,9 @@
 }
 
 .covered {
-  /*background-color: black;*/
   content:url('../img/card-back.png');
   content-size:contain;
-  /*background-size:contain;*/
-  }
+}
 
 .hand {
   overflow: auto;

@@ -9,7 +9,7 @@ class window.CardView extends Backbone.View
     @model.on 'change', => @render
     @render()
     # console.log(rankName)
-    console.log( @model.get 'rankName')
+    #console.log( @model.get 'rankName')
 
   render: ->
     @$el.children().detach().end().html

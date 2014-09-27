@@ -5,13 +5,57 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
-    if @scores()  < 21
+    if @isDealer == true
       @add(@deck.pop()).last()
+
     else
-      if @scores() == 21
-        alert('What are you doing?  You have 21.  People dream of getting to 21!')
+      if @scores().length == 1
+        if @scores() < 21
+          # Deal Card
+          @add(@deck.pop()).last()
+          # Check scores post card dealt
+          @scoreAction(@scores())
+    console.log(@scores())
+
+
+  stand: ->
+      # alert('Chicken!')
+      @trigger('click .stand-button')
+
+
+  scoreAction: (score)->
+    if @scores().length == 1
+      if @scores()[0] < 21
+        @trigger('decide')
+        # this trigger does nothing
+      else if @scores()[0] == 21
+        @trigger('stand')
       else
-        alert('You busted.  Play again.  Or quit.')
+        @trigger('bust')
+
+    else
+      if @scores()[0] > 21
+        @trigger('bust')
+      else if @scores()[0] == 21 || @scores()[1] == 21
+        @trigger('stand')
+      else
+        @trigger('decide')
+        # this trigger does nothing
+
+  dealerDecide: ->
+    #while score less than 17, hit
+    while
+      # below 17
+      if @scores() < 17 then @add(@deck.pop()).last()
+      #soft 17
+      else
+        if @scores()[1] == 17
+          console.log('Soft 17')
+        else
+          console.log('Dealer Stands')
+          @trigger('determineWinner', @)
+      # above 17
+      #
 
 
   scores: ->
