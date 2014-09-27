@@ -35,7 +35,7 @@ class window.Hand extends Backbone.Collection
 
     else
       if @scores()[0] > 21
-        @trigger('bust')
+        @trigger('playerBust')
       else if @scores()[0] == 21 || @scores()[1] == 21
         @trigger('stand')
       else
@@ -43,20 +43,22 @@ class window.Hand extends Backbone.Collection
         # this trigger does nothing
 
   dealerDecide: ->
-    #while score less than 17, hit
-    while
-      # below 17
-      if @scores() < 17 then @add(@deck.pop()).last()
-      #soft 17
-      else
-        if @scores()[1] == 17
-          console.log('Soft 17')
-        else
-          console.log('Dealer Stands')
-          @trigger('determineWinner', @)
-      # above 17
-      #
+    console.log(@.at(0).flip)
+    @.at(0).flip()
 
+    console.log(@scores())
+    #while score less than 17, hit
+    if @scores().length == 2
+      @hit() while (@scores()[1] < 18 or @scores()[1] > 21) && @scores()[0] < 17
+    else
+      @hit() while @scores() < 17
+
+    if @scores()[0] > 21
+      console.log('Dealer Busts')
+      @trigger('dealerBust',@)
+    else
+      console.log('Dealer Stands')
+      @trigger('determineWinner', @)
 
   scores: ->
     # The scores are an array of potential scores.
