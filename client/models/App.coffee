@@ -6,22 +6,26 @@ class window.App extends Backbone.Model
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
     #attach listeners
-    (@get 'dealerHand').on('determineWinner', @determineWinner, @)
+    (@get 'dealerHand').on('determineWinner', @determineWinner)
 
-  determineWinner: ->
-    dealerScore = @determineScore((@get 'dealerHand').scores())
-    playerScore = @determineScore((@get 'playerHand').scores())
-    push = false
+  determineWinner: =>
+    console.log('Determining Winner')
+
+    dealerScore = @determineScore(@get('dealerHand').scores())
+    playerScore = @determineScore(@get('playerHand').scores())
+
+    console.log('Context when determining winner ','playerHand')
+    @trigger('result','playerHand')
 
     if dealerScore == playerScore
-      push=true
       console.log('push')
+      @trigger('push')
     else if dealerScore > playerScore
-      console.log('dealer wins')
-      result = winner: 'dealer', winningScore: dealerScore
+      console.log('lose')
+      @trigger('lose')
     else
-      console.log('player wins')
-      result = winner: 'player', winningScore: playerScore
+      console.log('win')
+      @trigger('win')
 
   determineScore: (array)->
     if array.length == 1 || array[1] > 21 then return array[0]

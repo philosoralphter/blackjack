@@ -10,43 +10,41 @@ class window.Hand extends Backbone.Collection
 
     else
       if @scores().length == 1
-        if @scores() < 21
+        if @scores()[0] < 21
           # Deal Card
           @add(@deck.pop()).last()
           # Check scores post card dealt
           @scoreAction(@scores())
     console.log(@scores())
-
+    #INSERT ACE LOGIC
 
   stand: ->
-      # alert('Chicken!')
-      @trigger('click .stand-button')
+    @trigger('click .stand-button')
 
+  bust: ->
+    console.log('You busted.')
+    @trigger('result')
+    @trigger('bust')
 
   scoreAction: (score)->
     if @scores().length == 1
       if @scores()[0] < 21
-        @trigger('decide')
-        # this trigger does nothing
+        #do Nothing
       else if @scores()[0] == 21
-        @trigger('stand')
+        @stand()
       else
-        @trigger('bust')
+        @bust();
 
     else
       if @scores()[0] > 21
-        @trigger('playerBust')
+        @bust()
       else if @scores()[0] == 21 || @scores()[1] == 21
-        @trigger('stand')
-      else
-        @trigger('decide')
-        # this trigger does nothing
+        @stand()
 
   dealerDecide: ->
-    console.log(@.at(0).flip)
     @.at(0).flip()
 
-    console.log(@scores())
+    # console.log(@scores())
     #while score less than 17, hit
     if @scores().length == 2
       @hit() while (@scores()[1] < 18 or @scores()[1] > 21) && @scores()[0] < 17
@@ -55,10 +53,11 @@ class window.Hand extends Backbone.Collection
 
     if @scores()[0] > 21
       console.log('Dealer Busts')
-      @trigger('dealerBust',@)
+      @trigger('result')
+      @trigger('win')
     else
       console.log('Dealer Stands')
-      @trigger('determineWinner', @)
+      @trigger('determineWinner')
 
   scores: ->
     # The scores are an array of potential scores.

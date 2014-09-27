@@ -1,3 +1,8 @@
+body {
+  background: green;
+  font: white;
+}
+
 .card {
   float: left;
   border: solid 1px black;
@@ -15,4 +20,31 @@
 
 .hand {
   overflow: auto;
+}
+
+.result {
+  opacity: .6;
+}
+
+button {
+  font: 48px 'tahoma' ;
+  color: green;
+  background: silver;
+  border: 0px;
+}
+
+p.bust {
+    font: 36px 'Comic Sans MS';
+}
+
+p.push {
+    font: 24px yellow;
+}
+
+p.win {
+    font: 24px green;
+}
+
+p.lose {
+    font: 24px red;
 }
