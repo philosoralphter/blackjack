@@ -5,8 +5,13 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
-    #attach listeners
-    (@get 'dealerHand').on('determineWinner', @determineWinner)
+
+  basicStrat: ->
+    if @get('dealerHand').scores()[0] > 2 && @get('dealerHand').scores()[0] < 7
+      # Player should stay if cards are greater than 11
+      # Else hit until above 11 (or double down at 9, 10 or 11)
+    else
+      # Player should hit until reaching 17
 
   determineWinner: =>
     console.log('Determining Winner')
@@ -14,17 +19,14 @@ class window.App extends Backbone.Model
     dealerScore = @determineScore(@get('dealerHand').scores())
     playerScore = @determineScore(@get('playerHand').scores())
 
-    console.log('Context when determining winner ','playerHand')
-    @trigger('result','playerHand')
-
     if dealerScore == playerScore
-      console.log('push')
+      console.log('trigger push')
       @trigger('push')
     else if dealerScore > playerScore
-      console.log('lose')
+      console.log('trigger lose')
       @trigger('lose')
     else
-      console.log('win')
+      console.log('trigger win')
       @trigger('win')
 
   determineScore: (array)->

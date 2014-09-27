@@ -15,10 +15,12 @@ class window.Hand extends Backbone.Collection
           @add(@deck.pop()).last()
           # Check scores post card dealt
           @scoreAction(@scores())
-    console.log(@scores())
+
+    # console.log(@scores())
     #INSERT ACE LOGIC
 
   stand: ->
+    console.log('standing')
     @trigger('click .stand-button')
 
   bust: ->
@@ -33,13 +35,15 @@ class window.Hand extends Backbone.Collection
       else if @scores()[0] == 21
         @stand()
       else
-        @bust();
+        @bust()
 
     else
       if @scores()[0] > 21
         @bust()
       else if @scores()[0] == 21 || @scores()[1] == 21
         @stand()
+      else
+        # Choose to hit or stand
 
   dealerDecide: ->
     @.at(0).flip()

@@ -1,16 +1,21 @@
 body {
-  background: green;
-  font: white;
+  background: #336666;
+  font: white 'tahoma';
 }
 
 .card {
   float: left;
-  border: solid 1px black;
+  border: solid 4px #336666;
   width: 120px;
-  border-radius: 5px;
+  border-radius: 10%;
   height: 167px;
   margin-right: 20px;
   background-size:contain;
+}
+
+h2 {
+  font: 24px 'tahoma' ;
+  color: white;
 }
 
 .covered {
@@ -28,9 +33,18 @@ body {
 
 button {
   font: 48px 'tahoma' ;
-  color: green;
-  background: silver;
-  border: 0px;
+  color: #009900;
+  background: #336666;
+  border: 2px solid #009900;
+  border-radius: 50%;
+  padding: 20px;
+}
+
+p {
+    background: silver;
+    width: auto;
+    font-size: 160%;
+    font-family: 'tahoma';
 }
 
 p.bust {
@@ -38,13 +52,13 @@ p.bust {
 }
 
 p.push {
-    font: 24px yellow;
+    color: yellow;
 }
 
 p.win {
-    font: 24px green;
+    color: lime;
 }
 
 p.lose {
-    font: 24px red;
+    color: red;
 }

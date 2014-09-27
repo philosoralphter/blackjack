@@ -16,14 +16,11 @@ class window.AppView extends Backbone.View
 
   initialize: ->
     @render()
-    # @model.get('playerHand' ).on( "result", @renderResult, @)
-    # @model.on( "result", @renderResult, @)
     @model.get('playerHand').on( "bust", @renderBust, @)
-    @model.get('playerHand').on( "result", @renderBust, @)
-
+    @model.get('playerHand').on( "result", @renderResult, @)
+    @model.get('dealerHand').on( "result", @renderResult, @)
     @model.get('dealerHand').on( "win", @renderWin, @)
     @model.on( "win", @renderWin, @)
-
     @model.on( "push", @renderPush, @)
     @model.on( "lose", @renderLose, @)
     @model.get('dealerHand').on( "determineWinner", @model.determineWinner)
